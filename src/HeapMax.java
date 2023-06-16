@@ -35,23 +35,19 @@ public class HeapMax<E> {
         heapData[secondNode] = temp;   
     }
 
-	// create maxHeapify() method to heapify the node for maintaining the heap
-	// property
+	
 	private void maxHeapify(int position) {
 
-		// check whether the given node is non-leaf and greater than its right and left
-		// child
 		if (!checkLeaf(position)) {
 			if (heapData[position] < heapData[getLeftChildPosition(position)]
 					|| heapData[position] < heapData[getRightChildPosition(position)]) {
 
-				// swap with left child and then heapify the left child
+	
 				if (heapData[getLeftChildPosition(position)] > heapData[getRightChildPosition(position)]) {
 					swap(position, getLeftChildPosition(position));
 					maxHeapify(getLeftChildPosition(position));
 				}
 
-				// Swap with the right child and heapify the right child
 				else {
 					swap(position, getRightChildPosition(position));
 					maxHeapify(getRightChildPosition(position));
@@ -60,7 +56,6 @@ public class HeapMax<E> {
 		}
 	}
 
-	// create insertNode() method to insert element in the heap
 	public void insert(E data) {
 		heapData.add(data);
 		int current = size;
