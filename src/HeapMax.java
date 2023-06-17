@@ -29,63 +29,66 @@ public class HeapMax<E extends Comparable<E>> {
 	}
 
 	private void swap(int firstNode, int secondNode) {
-        E temp = heapData.get(firstNode);
-        heapData.set(firstNode, heapData.get(secondNode));
-        heapData.set(secondNode, temp);
-    }
+		E temp = heapData.get(firstNode);
+		heapData.set(firstNode, heapData.get(secondNode));
+		heapData.set(secondNode, temp);
+	}
 
-	
-	 private void maxHeapify(int position) {
-        if (!checkLeaf(position)) {
-            int leftChild = getLeftChildPosition(position);
-            int rightChild = getRightChildPosition(position);
+	private void maxHeapify(int position) {
+		if (!checkLeaf(position)) {
+			int leftChild = getLeftChildPosition(position);
+			int rightChild = getRightChildPosition(position);
 
-            int largest = position;
+			int largest = position;
 
-            if (leftChild < size && heapData.get(leftChild).compareTo(heapData.get(largest)) > 0)
-                largest = leftChild;
+			if (leftChild < size && heapData.get(leftChild).compareTo(heapData.get(largest)) > 0)
+				largest = leftChild;
 
-            if (rightChild < size && heapData.get(rightChild).compareTo(heapData.get(largest)) > 0)
-                largest = rightChild;
+			if (rightChild < size && heapData.get(rightChild).compareTo(heapData.get(largest)) > 0)
+				largest = rightChild;
 
-            if (largest != position) {
-                swap(position, largest);
-                maxHeapify(largest);
-            }
-        }
-    }
+			if (largest != position) {
+				swap(position, largest);
+				maxHeapify(largest);
+			}
+		}
+	}
 
-	 public void insert(E data) {
-        heapData.add(data);
-        int current = size;
-        size++;
+	public void insert(E data) {
+		heapData.add(data);
+		int current = size;
+		size++;
 
-        while (current > 0 && heapData.get(current).compareTo(heapData.get(getParentPosition(current))) > 0) {
-            swap(current, getParentPosition(current));
-            current = getParentPosition(current);
-        }
-    }
-	 public E removeMax() {
-        if (size == 0) {
-            throw new IllegalStateException("Heap is empty");
-        }
+		while (current > 0 && heapData.get(current).compareTo(heapData.get(getParentPosition(current))) > 0) {
+			swap(current, getParentPosition(current));
+			current = getParentPosition(current);
+		}
+	}
 
-        E max = heapData.get(0);
-        heapData.set(0, heapData.get(size - 1));
-        heapData.remove(size - 1);
-        size--;
+	public E removeMax() {
+		if (size == 0) {
+			throw new IllegalStateException("Heap is empty");
+		}
 
-        maxHeapify(0);
+		E max = heapData.get(0);
+		heapData.set(0, heapData.get(size - 1));
+		heapData.remove(size - 1);
+		size--;
 
-        return max;
-    }
+		maxHeapify(0);
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
+		return max;
+	}
 
-    public int size() {
-        return size;
-    }
+	public E getMax() {
+		return heapData.get(0);
+	}
+
+	public boolean isEmpty() {
+		return size == 0;
+	}
+
+	public int size() {
+		return size;
+	}
 }
-
